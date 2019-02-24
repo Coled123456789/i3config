@@ -172,16 +172,40 @@ bar {
 
 #i3-gaps config
 for_window [class="^.*"] border pixel 0
-gaps inner 10
-gaps outer 10
+gaps inner 7
+gaps outer 7
 
+#load pulseaudio
+#exec --no-startup-id pulseaudio -D
+exec --no-startup-id volumeicon
 #volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
+#media controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
 #start network
 exec --no-startup-id nm-applet
 
+
 #load bg
 exec ~/.fehbg
+
+#load xcompmgr
+exec xcompmgr -c -f -n
+
+#floating window sizes
+floating_minimum_size 75 x 50
+floating_maximum_size 360 x 360 
+
+#fcitx inbut
+exec export GTK_IM_MODULE="fcitx"
+exec export XMODIFIERS="@im=fcitx"
+exec export QT_IM_MODULE="fcitx"
+exec export DefaultIMModule="fcitx"
+exec --no-startup-id fcitx -d
